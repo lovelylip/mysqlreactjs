@@ -1,6 +1,6 @@
 package com.isme.nunu.web.rest.errors;
 
-import com.isme.nunu.MysqlreactjsApp;
+import com.isme.nunu.MyApp;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,7 +15,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
  */
 @WithMockUser
 @AutoConfigureWebTestClient
-@SpringBootTest(classes = MysqlreactjsApp.class)
+@SpringBootTest(classes = MyApp.class)
 public class ExceptionTranslatorIT {
 
     @Autowired

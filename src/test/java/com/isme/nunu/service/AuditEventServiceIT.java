@@ -2,7 +2,7 @@ package com.isme.nunu.service;
 
 import com.isme.nunu.domain.PersistentAuditEvent;
 import com.isme.nunu.repository.PersistenceAuditEventRepository;
-import com.isme.nunu.MysqlreactjsApp;
+import com.isme.nunu.MyApp;
 import io.github.jhipster.config.JHipsterProperties;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Integration tests for {@link AuditEventService}.
  */
-@SpringBootTest(classes = MysqlreactjsApp.class)
+@SpringBootTest(classes = MyApp.class)
 public class AuditEventServiceIT {
     @Autowired
     private AuditEventService auditEventService;

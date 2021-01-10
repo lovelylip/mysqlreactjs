@@ -1,6 +1,6 @@
 package com.isme.nunu.web.rest;
 
-import com.isme.nunu.MysqlreactjsApp;
+import com.isme.nunu.MyApp;
 import com.isme.nunu.config.Constants;
 import com.isme.nunu.domain.User;
 import com.isme.nunu.repository.UserRepository;
@@ -17,7 +17,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
  * Integration tests for the {@link UserJWTController} REST controller.
  */
 @AutoConfigureWebTestClient
-@SpringBootTest(classes = MysqlreactjsApp.class)
+@SpringBootTest(classes = MyApp.class)
 public class UserJWTControllerIT {
 
     @Autowired

@@ -22,13 +22,13 @@ import java.util.Collection;
 
 @SpringBootApplication
 @EnableConfigurationProperties({LiquibaseProperties.class, ApplicationProperties.class})
-public class MysqlreactjsApp {
+public class MyApp {
 
-    private static final Logger log = LoggerFactory.getLogger(MysqlreactjsApp.class);
+    private static final Logger log = LoggerFactory.getLogger(MyApp.class);
 
     private final Environment env;
 
-    public MysqlreactjsApp(Environment env) {
+    public MyApp(Environment env) {
         this.env = env;
     }
 
@@ -58,7 +58,7 @@ public class MysqlreactjsApp {
      * @param args the command line arguments.
      */
     public static void main(String[] args) {
-        SpringApplication app = new SpringApplication(MysqlreactjsApp.class);
+        SpringApplication app = new SpringApplication(MyApp.class);
         DefaultProfileUtil.addDefaultProfile(app);
         Environment env = app.run(args).getEnvironment();
         logApplicationStartup(env);

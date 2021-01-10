@@ -1,6 +1,6 @@
 package com.isme.nunu.service;
 
-import com.isme.nunu.MysqlreactjsApp;
+import com.isme.nunu.MyApp;
 import com.isme.nunu.config.Constants;
 import com.isme.nunu.domain.User;
 import com.isme.nunu.repository.search.UserSearchRepository;
@@ -34,7 +34,7 @@ import static org.mockito.Mockito.any;
 /**
  * Integration tests for {@link UserService}.
  */
-@SpringBootTest(classes = MysqlreactjsApp.class)
+@SpringBootTest(classes = MyApp.class)
 public class UserServiceIT {
 
     private static final String DEFAULT_LOGIN = "johndoe";

@@ -1,6 +1,6 @@
 package com.isme.nunu.web.rest;
 
-import com.isme.nunu.MysqlreactjsApp;
+import com.isme.nunu.MyApp;
 import com.isme.nunu.domain.PersistentAuditEvent;
 import com.isme.nunu.repository.PersistenceAuditEventRepository;
 import com.isme.nunu.security.AuthoritiesConstants;
@@ -24,7 +24,7 @@ import static org.hamcrest.Matchers.hasItem;
  */
 @AutoConfigureWebTestClient
 @WithMockUser(authorities = AuthoritiesConstants.ADMIN)
-@SpringBootTest(classes = MysqlreactjsApp.class)
+@SpringBootTest(classes = MyApp.class)
 public class AuditResourceIT {
 
     private static final String SAMPLE_PRINCIPAL = "SAMPLE_PRINCIPAL";

@@ -1,6 +1,6 @@
 package com.isme.nunu.security;
 
-import com.isme.nunu.MysqlreactjsApp;
+import com.isme.nunu.MyApp;
 import com.isme.nunu.config.Constants;
 import com.isme.nunu.domain.User;
 import com.isme.nunu.repository.UserRepository;
@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 /**
  * Integrations tests for {@link DomainUserDetailsService}.
  */
-@SpringBootTest(classes = MysqlreactjsApp.class)
+@SpringBootTest(classes = MyApp.class)
 public class DomainUserDetailsServiceIT {
 
     private static final String USER_ONE_LOGIN = "test-user-one";

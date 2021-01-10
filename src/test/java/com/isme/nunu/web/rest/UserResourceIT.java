@@ -1,6 +1,6 @@
 package com.isme.nunu.web.rest;
 
-import com.isme.nunu.MysqlreactjsApp;
+import com.isme.nunu.MyApp;
 import com.isme.nunu.config.Constants;
 import com.isme.nunu.domain.Authority;
 import com.isme.nunu.domain.User;
@@ -33,7 +33,7 @@ import static org.mockito.Mockito.*;
  */
 @AutoConfigureWebTestClient
 @WithMockUser(authorities = AuthoritiesConstants.ADMIN)
-@SpringBootTest(classes = MysqlreactjsApp.class)
+@SpringBootTest(classes = MyApp.class)
 public class UserResourceIT {
 
     private static final String DEFAULT_LOGIN = "johndoe";

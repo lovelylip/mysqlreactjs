@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Table, Row, Badge } from 'reactstrap';
-import { Translate, TextFormat, JhiPagination, JhiItemCount, getSortState } from 'react-jhipster';
+import {Translate, TextFormat, JhiPagination, JhiItemCount, getSortState, translate} from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { APP_DATE_FORMAT } from 'app/config/constants';
@@ -10,6 +10,9 @@ import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
 import { getUsers, updateUser } from './user-management.reducer';
 import { IRootState } from 'app/shared/reducers';
+import { Checkbox } from 'primereact/checkbox';
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
 
 export interface IUserManagementProps extends StateProps, DispatchProps, RouteComponentProps<{}> {}
 
@@ -61,8 +64,126 @@ export const UserManagement = (props: IUserManagementProps) => {
     });
 
   const { users, account, match, totalItems } = props;
+
+  const categories = [{name: 'Accounting', key: 'A'}, {name: 'Marketing', key: 'M'}, {name: 'Production', key: 'P'}, {name: 'Research', key: 'R'}];
+  const [checked, setChecked] = useState(false);
+  const [cities, setCities] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState(categories.slice(1,3));
+
+  const onCategoryChange = (e) => {
+    const _selectedCategories = [...selectedCategories];
+
+    if (e.checked) {
+      _selectedCategories.push(e.value);
+    }
+    else {
+      for (let i = 0; i < _selectedCategories.length; i++) {
+        const selectedCategory = _selectedCategories[i];
+
+        if (selectedCategory.key === e.value.key) {
+          _selectedCategories.splice(i, 1);
+          break;
+        }
+      }
+    }
+
+    setSelectedCategories(_selectedCategories);
+  }
+
+
+  const onCityChange = (e) => {
+    const selectedCities = [...cities];
+
+    if (e.checked)
+      selectedCities.push(e.value);
+    else
+      selectedCities.splice(selectedCities.indexOf(e.value), 1);
+
+    setCities(selectedCities);
+  }
+
+  const activatedBody = (user) => {
+    return user.activated ? (
+      <Button color="success" onClick={toggleActive(user)}>
+        <Translate contentKey="userManagement.activated">Activated</Translate>
+      </Button>
+    ) : (
+      <Button color="danger" onClick={toggleActive(user)}>
+        <Translate contentKey="userManagement.deactivated">Deactivated</Translate>
+      </Button>
+    );
+  }
+
+  const idBody = (user) => {
+    return <Button tag={Link} to={`${match.url}/${user.login}`} color="link" size="sm">
+      {user.id}
+    </Button>;
+  }
+
+  const authoritiesBody = (user, i) => {
+    return user.authorities
+      ? user.authorities.map((authority, j) => (
+        <div key={`user-auth-${i.rowIndex}-${j}`}>
+          <Badge color="info">{authority}</Badge>
+        </div>
+      ))
+      : null;
+  }
+
   return (
     <div>
+      <div className="card">
+        <h5>Basic</h5>
+        <div className="p-field-checkbox">
+          <Checkbox inputId="binary" checked={checked} onChange={e => setChecked(e.checked)} />
+          <label htmlFor="binary">{checked ? 'true' : 'false'}</label>
+        </div>
+
+        <h5>Multiple</h5>
+        <div className="p-field-checkbox">
+          <Checkbox inputId="city1" name="city" value="Chicago" onChange={onCityChange} checked={cities.includes('Chicago')} />
+          <label htmlFor="city1">Chicago</label>
+        </div>
+        <div className="p-field-checkbox">
+          <Checkbox inputId="city2" name="city" value="Los Angeles" onChange={onCityChange} checked={cities.includes('Los Angeles')} />
+          <label htmlFor="city2">Los Angeles</label>
+        </div>
+        <div className="p-field-checkbox">
+          <Checkbox inputId="city3" name="city" value="New York" onChange={onCityChange} checked={cities.includes('New York')} />
+          <label htmlFor="city3">New York</label>
+        </div>
+        <div className="p-field-checkbox">
+          <Checkbox inputId="city4" name="city" value="San Francisco" onChange={onCityChange} checked={cities.includes('San Francisco')} />
+          <label htmlFor="city4">San Francisco</label>
+        </div>
+
+        <h5>Dynamic Values, Preselection, Value Binding and Disabled Option</h5>
+        {
+          categories.map((category) => {
+            return (
+              <div key={category.key} className="p-field-checkbox">
+                <Checkbox inputId={category.key} name="category" value={category} onChange={onCategoryChange} checked={selectedCategories.some((item) => item.key === category.key)} disabled={category.key === 'R'} />
+                <label htmlFor={category.key}>{category.name}</label>
+              </div>
+            )
+          })
+        }
+      </div>
+      <div className="card">
+        <DataTable value={this.props.users} paginator totalRecords={props.totalItems} rows={pagination.itemsPerPage}
+                   lazy first={pagination.activePage} onPage={handlePagination} loading={false}>
+          <Column field="id" body={idBody} header={translate('global.field.id')} sortable></Column>
+          <Column field="login" header={translate('userManagement.login')} sortable></Column>
+          <Column field="email" header={translate('userManagement.email')} sortable></Column>
+          <Column field="activated" body={activatedBody}></Column>
+          <Column field="langKey" header={translate('userManagement.langKey')} sortable></Column>
+          <Column field="profiles" body={authoritiesBody} header={translate('userManagement.profiles')}></Column>
+          <Column field="createdDate" header={translate('userManagement.createdDate')} sortable></Column>
+          <Column field="lastModifiedBy" header={translate('userManagement.lastModifiedBy')} sortable></Column>
+          <Column field="lastModifiedDate" header={translate('userManagement.lastModifiedDate')} sortable></Column>
+          <Column></Column>
+        </DataTable>
+      </div>
       <h2 id="user-management-page-heading">
         <Translate contentKey="userManagement.home.title">Users</Translate>
         <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity">

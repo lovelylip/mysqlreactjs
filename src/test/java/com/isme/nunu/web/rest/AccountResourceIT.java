@@ -1,6 +1,6 @@
 package com.isme.nunu.web.rest;
 
-import com.isme.nunu.MysqlreactjsApp;
+import com.isme.nunu.MyApp;
 import com.isme.nunu.config.Constants;
 import com.isme.nunu.domain.User;
 import com.isme.nunu.repository.AuthorityRepository;
@@ -13,7 +13,6 @@ import com.isme.nunu.service.dto.UserDTO;
 import com.isme.nunu.web.rest.vm.KeyAndPasswordVM;
 import com.isme.nunu.web.rest.vm.ManagedUserVM;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
@@ -37,7 +36,7 @@ import static com.isme.nunu.web.rest.AccountResourceIT.TEST_USER_LOGIN;
  */
 @AutoConfigureWebTestClient
 @WithMockUser(value = TEST_USER_LOGIN)
-@SpringBootTest(classes = MysqlreactjsApp.class)
+@SpringBootTest(classes = MyApp.class)
 public class AccountResourceIT {
     static final String TEST_USER_LOGIN = "test";
 
