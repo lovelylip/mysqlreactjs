@@ -1,0 +1,33 @@
+version: '2'
+services:
+  mysqlreactjs-app:
+    image: mysqlreactjs
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - SPRING_PROFILES_ACTIVE=prod,swagger
+      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
+      - SPRING_CLOUD_CONSUL_HOST=consul
+      - SPRING_CLOUD_CONSUL_PORT=8500
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysqlreactjs-mysql:3306/mysqlreactjs?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true
+      - JHIPSTER_SLEEP=30 # gives time for other services to boot before the application
+      - SPRING_DATA_JEST_URI=http://mysqlreactjs-elasticsearch:9200
+      - SPRING_ELASTICSEARCH_REST_URIS=http://mysqlreactjs-elasticsearch:9200
+    ports:
+      - 8080:8080
+  mysqlreactjs-mysql:
+    extends:
+      file: mysql.yml
+      service: mysqlreactjs-mysql
+  mysqlreactjs-elasticsearch:
+    extends:
+      file: elasticsearch.yml
+      service: mysqlreactjs-elasticsearch
+  consul:
+    extends:
+      file: consul.yml
+      service: consul
+
+  consul-config-loader:
+    extends:
+      file: consul.yml
+      service: consul-config-loader
