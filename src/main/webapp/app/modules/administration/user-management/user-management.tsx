@@ -130,6 +130,45 @@ export const UserManagement = (props: IUserManagementProps) => {
       : null;
   }
 
+  const createdDateBody = (user, i) => {
+    return user.createdDate ? <TextFormat value={user.createdDate} type="date" format={APP_DATE_FORMAT} blankOnInvalid /> : null;
+  }
+
+  const lastModifiedDateBody = (user, i) => {
+    return user.lastModifiedDate ? (
+      <TextFormat value={user.lastModifiedDate} type="date" format={APP_DATE_FORMAT} blankOnInvalid />
+    ) : null;
+  }
+
+  const genderButton = (user) => {
+    return <div className="btn-group flex-btn-group-container">
+      <Button tag={Link} to={`${match.url}/${user.login}`} color="info" size="sm">
+        <FontAwesomeIcon icon="eye" />{' '}
+        <span className="d-none d-md-inline">
+                      <Translate contentKey="entity.action.view">View</Translate>
+                    </span>
+      </Button>
+      <Button tag={Link} to={`${match.url}/${user.login}/edit`} color="primary" size="sm">
+        <FontAwesomeIcon icon="pencil-alt" />{' '}
+        <span className="d-none d-md-inline">
+                      <Translate contentKey="entity.action.edit">Edit</Translate>
+                    </span>
+      </Button>
+      <Button
+        tag={Link}
+        to={`${match.url}/${user.login}/delete`}
+        color="danger"
+        size="sm"
+        disabled={account.login === user.login}
+      >
+        <FontAwesomeIcon icon="trash" />{' '}
+        <span className="d-none d-md-inline">
+                      <Translate contentKey="entity.action.delete">Delete</Translate>
+                    </span>
+      </Button>
+    </div>;
+  }
+
   return (
     <div>
       <div className="card">
@@ -178,10 +217,10 @@ export const UserManagement = (props: IUserManagementProps) => {
           <Column field="activated" body={activatedBody}></Column>
           <Column field="langKey" header={translate('userManagement.langKey')} sortable></Column>
           <Column field="profiles" body={authoritiesBody} header={translate('userManagement.profiles')}></Column>
-          <Column field="createdDate" header={translate('userManagement.createdDate')} sortable></Column>
+          <Column field="createdDate" body={createdDateBody} header={translate('userManagement.createdDate')} sortable></Column>
           <Column field="lastModifiedBy" header={translate('userManagement.lastModifiedBy')} sortable></Column>
-          <Column field="lastModifiedDate" header={translate('userManagement.lastModifiedDate')} sortable></Column>
-          <Column></Column>
+          <Column field="lastModifiedDate" body={lastModifiedDateBody} header={translate('userManagement.lastModifiedDate')} sortable></Column>
+          <Column className={"text-right"} body={genderButton}></Column>
         </DataTable>
       </div>
       <h2 id="user-management-page-heading">

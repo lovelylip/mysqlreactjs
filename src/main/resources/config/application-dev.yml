@@ -54,7 +54,7 @@ spring:
   liquibase:
     # Remove 'faker' if you do not want the sample data to be loaded automatically
     contexts: dev, faker
-    url: jdbc:mysql://localhost:3306/mysqlreactjs?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/ismy?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true
   mail:
     host: localhost
     port: 25
@@ -63,7 +63,7 @@ spring:
   messages:
     cache-duration: PT1S # 1 second, see the ISO 8601 standard
   r2dbc:
-    url: r2dbc:mysql://localhost:3306/mysqlreactjs?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true
+    url: r2dbc:mysql://localhost:3306/ismy?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true
     username: root
     password: 123456a@
   thymeleaf:

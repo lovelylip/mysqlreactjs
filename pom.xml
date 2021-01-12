@@ -4,10 +4,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.isme.nunu</groupId>
-    <artifactId>mysqlreactjs</artifactId>
+    <artifactId>reactmys</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>Mysqlreactjs</name>
+    <name>reactmys</name>
 
     <repositories>
         <repository>
@@ -723,7 +723,7 @@
                             <image>adoptopenjdk:11-jre-hotspot</image>
                         </from>
                         <to>
-                            <image>mysqlreactjs:latest</image>
+                            <image>reactmys:latest</image>
                         </to>
                         <container>
                             <entrypoint>
